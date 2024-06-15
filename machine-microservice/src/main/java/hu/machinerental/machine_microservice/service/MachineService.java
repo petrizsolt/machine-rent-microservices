@@ -38,4 +38,12 @@ public class MachineService {
 		return machineRepo.save(machine);
 	}
 
+	public void deleteById(UUID id) {
+		
+		//TODO
+		//check for active rental avaiable
+		
+		machineRepo.deleteById(id);
+	}
+
 }
