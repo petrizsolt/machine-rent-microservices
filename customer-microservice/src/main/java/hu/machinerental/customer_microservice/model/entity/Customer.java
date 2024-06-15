@@ -1,9 +1,11 @@
-package hu.machinerental.machine_microservice.model.entity;
+package hu.machinerental.customer_microservice.model.entity;
 
 import java.util.UUID;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -16,13 +18,27 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "machines")
-public class Machine {
-	
+@Table(name = "customers")
+public class Customer {
+
 	  @Id
 	  @GeneratedValue(strategy = GenerationType.UUID)
 	  private UUID id;
+
+	  private String firstName;
+	  
+	  private String lastName;
+	  
+	  private String companyName;
 	  
 	  @Column(nullable = false)
-	  private String name;
+	  @Enumerated(EnumType.STRING)
+	  private CustomerType type;
+	  
+	  @Column(nullable = false)
+	  private String address;
+	  
+	  @Column(nullable = false)
+	  private String phone;
+
 }
