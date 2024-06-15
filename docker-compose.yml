@@ -45,3 +45,16 @@ services:
       PGPORT: 5532
     volumes:
       - ./databases/machines-data:/var/lib/postgresql/data
+  customers-database:
+    container_name: customers-database
+    image: postgres:14.1-alpine
+    restart: always
+    ports:
+      - '5533:5533'
+    environment:
+      POSTGRES_DB: customers-database
+      POSTGRES_USER: customers
+      POSTGRES_PASSWORD: 1234
+      PGPORT: 5533
+    volumes:
+      - ./databases/customers-database:/var/lib/postgresql/data
