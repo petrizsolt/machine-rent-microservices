@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  eureka-server:
+    build:
+      context: .
+      dockerfile: eureka-server/Dockerfile
+    container_name: eureka-server
+    restart: always
+    ports:
+      - "9090:9090"
+
+    volumes:
+      - type: bind
+        source: eureka-server
+        target: /app
+
+  machines-database:
+    container_name: macihnes-database-pg14
+    image: postgres:14.1-alpine
+    restart: always
+    ports:
+      - '5532:5532'
+    environment:
+      POSTGRES_DB: machines-database
+      POSTGRES_USER: machines
+      POSTGRES_PASSWORD: 1234
+      PGPORT: 5532
+    volumes:
+      - ./databases/machines-data:/var/lib/postgresql/data
