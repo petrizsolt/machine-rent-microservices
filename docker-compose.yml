@@ -15,8 +15,25 @@ services:
         source: eureka-server
         target: /app
 
+  machine-microservice:
+    build:
+      context: .
+      dockerfile: machine-microservice/Dockerfile
+    container_name: machine-microservice
+    restart: always
+    ports:
+      - "8081:8081"
+    depends_on:
+      - eureka-server
+      - machines-database
+    volumes:
+      - type: bind
+        source: machine-microservice
+        target: /app
+
+
   machines-database:
-    container_name: macihnes-database-pg14
+    container_name: machines-database
     image: postgres:14.1-alpine
     restart: always
     ports:

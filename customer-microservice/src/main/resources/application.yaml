@@ -1,4 +1,7 @@
+location:
+   eureka: eureka-server:9090
+ 
 eureka:
   client:
     serviceUrl:
-      defaultZone: ${EUREKA_URI:http://localhost:9090/eureka}
+      defaultZone: http://${location.eureka}/eureka
