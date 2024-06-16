@@ -1,11 +1,15 @@
 package hu.machinerental.machine_microservice.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
+import hu.machinerental.machine_microservice.exception.MachineInRentException;
+import hu.machinerental.machine_microservice.feignclients.rental.RentalClient;
+import hu.machinerental.machine_microservice.feignclients.rental.dto.Rental;
 import hu.machinerental.machine_microservice.model.dto.CreateMachineReq;
 import hu.machinerental.machine_microservice.model.entity.Machine;
 import hu.machinerental.machine_microservice.repository.MachineRepository;
@@ -17,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 public class MachineService {
 	
 	private final MachineRepository machineRepo;
+	private final RentalClient rentalClient;
 	
 	public List<Machine> findAll() {
 		return (List<Machine>) machineRepo.findAll();
@@ -40,8 +45,16 @@ public class MachineService {
 
 	public void deleteById(UUID id) {
 		
-		//TODO
-		//check for active rental avaiable
+		List<Rental> activeRentals = rentalClient.findAllFiltered(null, null, LocalDate.now(), null);
+		boolean hasRentalById = false;
+		
+		if(activeRentals != null && !activeRentals.isEmpty()) {
+			hasRentalById = activeRentals.stream().anyMatch(r -> id.equals(r.getId()));
+		}
+		
+		if(hasRentalById) {
+			throw new MachineInRentException();
+		}
 		
 		machineRepo.deleteById(id);
 	}
