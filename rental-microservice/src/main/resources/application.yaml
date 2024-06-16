@@ -3,5 +3,9 @@ location:
  
 eureka:
   client:
+    enabled: true
     serviceUrl:
       defaultZone: http://${location.eureka}/eureka
+    registerWithEureka: true
+    fetchRegistry: true
+   

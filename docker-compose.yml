@@ -47,6 +47,24 @@ services:
         source: customer-microservice
         target: /app
 
+  rental-microservice:
+    build:
+      context: .
+      dockerfile: rental-microservice/Dockerfile
+    container_name: rental-microservice
+    restart: always
+    ports:
+      - "8083:8083"
+    depends_on:
+      - eureka-server
+      - rental-database
+      - customer-microservice
+      - machine-microservice
+    volumes:
+      - type: bind
+        source: rental-microservice
+        target: /app
+
   machines-database:
     container_name: machines-database
     image: postgres:14.1-alpine
