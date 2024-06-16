@@ -60,7 +60,7 @@ services:
       PGPORT: 5532
     volumes:
       - ./databases/machines-data:/var/lib/postgresql/data
-      
+
   customers-database:
     container_name: customers-database
     image: postgres:14.1-alpine
@@ -74,3 +74,17 @@ services:
       PGPORT: 5533
     volumes:
       - ./databases/customers-database:/var/lib/postgresql/data
+
+  rental-database:
+    container_name: rental-database
+    image: postgres:14.1-alpine
+    restart: always
+    ports:
+      - '5534:5534'
+    environment:
+      POSTGRES_DB: rental-database
+      POSTGRES_USER: rental
+      POSTGRES_PASSWORD: 1234
+      PGPORT: 5534
+    volumes:
+      - ./databases/rental-database:/var/lib/postgresql/data
