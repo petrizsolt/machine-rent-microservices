@@ -2,6 +2,7 @@ package hu.machinerental.customer_microservice.model.entity;
 
 import java.util.UUID;
 
+import hu.machinerental.customer_microservice.model.dto.CreateCustomerReq;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -41,4 +42,21 @@ public class Customer {
 	  @Column(nullable = false)
 	  private String phone;
 
+	  public Customer(CreateCustomerReq req) {
+		  this.address = req.getAddress();
+		  this.companyName = req.getCompanyName();
+		  this.firstName = req.getFirstName();
+		  this.lastName = req.getLastName();
+		  this.phone = req.getPhone();
+		  this.type = req.getType();
+	  }
+	  
+	  public void setVariablesByDto(CreateCustomerReq req) {
+		  this.address = req.getAddress();
+		  this.companyName = req.getCompanyName();
+		  this.firstName = req.getFirstName();
+		  this.lastName = req.getLastName();
+		  this.phone = req.getPhone();
+		  this.type = req.getType();
+	  }
 }

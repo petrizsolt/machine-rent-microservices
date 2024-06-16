@@ -31,6 +31,21 @@ services:
         source: machine-microservice
         target: /app
 
+  customer-microservice:
+    build:
+      context: .
+      dockerfile: customer-microservice/Dockerfile
+    container_name: customer-microservice
+    restart: always
+    ports:
+      - "8082:8082"
+    depends_on:
+      - eureka-server
+      - customers-database
+    volumes:
+      - type: bind
+        source: customer-microservice
+        target: /app
 
   machines-database:
     container_name: machines-database
@@ -45,6 +60,7 @@ services:
       PGPORT: 5532
     volumes:
       - ./databases/machines-data:/var/lib/postgresql/data
+      
   customers-database:
     container_name: customers-database
     image: postgres:14.1-alpine
