@@ -93,6 +93,7 @@ services:
       PGPORT: 5533
     volumes:
       - ./databases/customers-database:/var/lib/postgresql/data
+      - ./database-init/customers:/docker-entrypoint-initdb.d
 
   rental-database:
     container_name: rental-database
@@ -107,3 +108,4 @@ services:
       PGPORT: 5534
     volumes:
       - ./databases/rental-database:/var/lib/postgresql/data
+      - ./database-init/rental:/docker-entrypoint-initdb.d
