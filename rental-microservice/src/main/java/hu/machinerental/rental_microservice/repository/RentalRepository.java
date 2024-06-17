@@ -21,4 +21,6 @@ public interface RentalRepository extends CrudRepository<Rental, UUID> {
 			Optional<LocalDate> dateFromEnd,
 			Optional<LocalDate> dateToStart,
 			Optional<LocalDate> dateToEnd);
+	
+	public boolean existsByDateToGreaterThanEqualAndMachineId(LocalDate dateTo, UUID machineId);
 }
