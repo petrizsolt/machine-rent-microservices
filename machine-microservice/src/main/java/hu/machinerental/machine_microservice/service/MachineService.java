@@ -49,7 +49,7 @@ public class MachineService {
 		boolean hasRentalById = false;
 		
 		if(activeRentals != null && !activeRentals.isEmpty()) {
-			hasRentalById = activeRentals.stream().anyMatch(r -> id.equals(r.getId()));
+			hasRentalById = activeRentals.stream().anyMatch(r -> id.equals(r.getMachineId()));
 		}
 		
 		if(hasRentalById) {

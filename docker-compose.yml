@@ -78,6 +78,7 @@ services:
       PGPORT: 5532
     volumes:
       - ./databases/machines-data:/var/lib/postgresql/data
+      - ./database-init/machines:/docker-entrypoint-initdb.d
 
   customers-database:
     container_name: customers-database
