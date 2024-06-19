@@ -1,4 +1,4 @@
-package hu.machinerental.rental_microservice.exception;
+package hu.machinerental.api_gateway_for_frontend.exception;
 
 import java.util.Date;
 

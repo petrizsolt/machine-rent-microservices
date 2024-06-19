@@ -5,3 +5,4 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://${location.eureka}/eureka
+      

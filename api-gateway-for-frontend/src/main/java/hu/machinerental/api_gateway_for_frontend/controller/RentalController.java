@@ -1,4 +1,4 @@
-package hu.machinerental.rental_microservice.controller;
+package hu.machinerental.api_gateway_for_frontend.controller;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import hu.machinerental.rental_microservice.model.dto.CreateRentalDto;
-import hu.machinerental.rental_microservice.model.entity.Rental;
-import hu.machinerental.rental_microservice.service.RentalService;
+import hu.machinerental.api_gateway_for_frontend.feignclients.rental.RentalClient;
+import hu.machinerental.api_gateway_for_frontend.feignclients.rental.dto.CreateRentalDto;
+import hu.machinerental.api_gateway_for_frontend.feignclients.rental.dto.Rental;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -26,21 +26,21 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class RentalController {
 	
-	private final RentalService rentalService;
+	private final RentalClient rentalClient;
 	
 	@GetMapping
 	public List<Rental> findAll() {
-		 return rentalService.findAll();
+		 return rentalClient.findAll();
 	}
 	
 	@PostMapping("/rent")
 	public Rental rent(@Valid @RequestBody CreateRentalDto req) {
-		return rentalService.makeRent(req);
+		return rentalClient.rent(req);
 	}
 	
 	@DeleteMapping("/delete-by-id")
 	public void deleteById(@RequestParam UUID id) {
-		rentalService.deleteById(id);
+		rentalClient.deleteById(id);
 	}
 	
 	@GetMapping("/filtered")
@@ -49,6 +49,6 @@ public class RentalController {
 			@RequestParam(required = false) Optional<LocalDate> dateFromEnd, 
 			@RequestParam(required = false) Optional<LocalDate> dateToStart,
 			@RequestParam(required = false) Optional<LocalDate> dateToEnd) {
-		 return rentalService.findAllFiltered(dateFromStart, dateFromEnd, dateToStart, dateToEnd);
+		 return rentalClient.findAllFiltered(dateFromStart, dateFromEnd, dateToStart, dateToEnd);
 	}
 }

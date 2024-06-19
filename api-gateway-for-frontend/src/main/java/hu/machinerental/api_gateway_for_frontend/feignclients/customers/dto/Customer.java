@@ -1,4 +1,4 @@
-package hu.machinerental.rental_microservice.feignclients.customer.dto;
+package hu.machinerental.api_gateway_for_frontend.feignclients.customers.dto;
 
 import java.util.UUID;
 

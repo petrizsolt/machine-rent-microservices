@@ -1,0 +1,23 @@
+location:
+   eureka: eureka-server:9090
+   keycloak: keycloak_web:9000 
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://${location.eureka}/eureka
+
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            client-id: spring-rental
+            client-secret: 1vuVnvUuMatbDClZoPtedSQKK9pEKZqA
+            scope: openid
+            authorization-grant-type: password
+            token-uri: http://${location.keycloak}/realms/rental/protocol/openid-connect/token
+        provider:
+          keycloak:
+            issuer-uri: http://${location.keycloak}/realms/rental

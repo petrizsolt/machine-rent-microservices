@@ -1,1 +1,1 @@
-docker-compose up -d rental-database customers-database machines-database
+docker-compose up -d rental-database customers-database machines-database keycloakdb
