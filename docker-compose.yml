@@ -28,6 +28,7 @@ services:
       - machine-microservice
       - customer-microservice
       - rental-microservice
+      - keycloak-web
     volumes:
       - type: bind
         source: api-gateway-for-frontend
@@ -83,9 +84,9 @@ services:
         source: rental-microservice
         target: /app
 
-  keycloak_web:
+  keycloak-web:
     image: quay.io/keycloak/keycloak:23.0.7
-    container_name: keycloak_web
+    container_name: keycloak-web
     environment:
       KC_DB: postgres
       KC_DB_URL: jdbc:postgresql://keycloakdb:5535/keycloak
@@ -102,7 +103,7 @@ services:
       KC_HEALTH_ENABLED: true
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
-    command: -v start-dev --import-realm --http-port=9000
+    command: -v start-dev --import-realm --http-port=9000 --hostname keycloak-web --hostname-strict-backchannel true
     volumes:
       - ./imports:/opt/keycloak/data/import
     depends_on:

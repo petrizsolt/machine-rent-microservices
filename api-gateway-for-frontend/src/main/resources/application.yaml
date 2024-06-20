@@ -1,6 +1,6 @@
 location:
    eureka: eureka-server:9090
-   keycloak: keycloak_web:9000 
+   keycloak: keycloak-web:9000 
 
 eureka:
   client:
